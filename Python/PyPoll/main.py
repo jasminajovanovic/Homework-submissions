@@ -2,7 +2,7 @@ import os
 import csv
 
 input_file = os.path.join('.', "election_data.csv")
-output_file = os.path.join('.', "election_output.csv")
+output_file = os.path.join('.', "election_output.txt")
 
 candidates_list = {}
 maxvotes = 0
@@ -25,13 +25,20 @@ for candidate, votes in candidates_list.items():
         maxvotes = votes
         winner = candidate
 
-print ("Election Results")
-print ("--------------------------")
-print ("Total votes cast: " + str(total_votes))
-print ("--------------------------")
-for candidate in candidates_list.keys():
-    votes = candidates_list[candidate]
-    print (candidate + " received " + str(votes) + " (" + "{:.2%}".format(votes/total_votes) + ") votes")
-print ("--------------------------")
-
-print ("The winner is: " + winner)
+with open (output_file, "w", newline = '') as outputfile:
+    outputfile.write("Election results\n")
+    print ("Election Results")
+    outputfile.write("--------------------------\n")
+    print ("--------------------------")
+    outputfile.write("Total votes cast: " + str(total_votes) + "\n")
+    print ("Total votes cast: " + str(total_votes))
+    outputfile.write("--------------------------\n")
+    print ("--------------------------")
+    for candidate in candidates_list.keys():
+        votes = candidates_list[candidate]
+        outputfile.write(candidate + " received " + str(votes) + " (" + "{:.2%}".format(votes/total_votes) + ") votes\n")
+        print (candidate + " received " + str(votes) + " (" + "{:.2%}".format(votes/total_votes) + ") votes")
+    outputfile.write("--------------------------\n")
+    print ("--------------------------")
+    outputfile.write("The winner is: " + winner + "\n")
+    print ("The winner is: " + winner)
