@@ -9,6 +9,7 @@ smallest_profit_increase = [0,""]
 monthly_change_list = []
 
 csvpath = os.path.join('.', 'budget_data.csv')
+csvoutput = os.path.join('.', 'output_file.csv')
 
 with open(csvpath, newline='') as csvfile:
     # CSV reader specifies delimiter and variable that holds contents
@@ -38,7 +39,14 @@ with open(csvpath, newline='') as csvfile:
             smallest_profit_increase[0] = monthly_change
             smallest_profit_increase[1] = monthly_records[i][0]
             
-        
+    with open(csvoutput, 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile, delimiter=',')
+        csvwriter.writerow (["Total months", str(total_months)])
+        csvwriter.writerow (["Total profit", str(total_profit)])
+        csvwriter.writerow (["Average monthly change", str(round(sum(monthly_change_list)/len(monthly_change_list),2))])
+        csvwriter.writerow (["Greatest monthly increase", str(greatest_profit_increase [1] + " " + str(greatest_profit_increase[0]))])
+        csvwriter.writerow (["Smallest monthly increase", str(smallest_profit_increase[1] + " " + str(smallest_profit_increase[0]))])
+
     total_months = csvreader.line_num -1
     print ("Total months:" + str(total_months))
     print ("Total: " + str(total_profit))
