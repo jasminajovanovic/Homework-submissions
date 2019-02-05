@@ -3,9 +3,7 @@ import csv
 
 total_profit = 0
 monthly_records = []
-total_change = 0
 monthly_change = 0
-total_monthly_change = 0
 greatest_profit_increase = [0,""]
 smallest_profit_increase = [0,""]
 monthly_change_list = []
@@ -40,15 +38,10 @@ with open(csvpath, newline='') as csvfile:
             smallest_profit_increase[0] = monthly_change
             smallest_profit_increase[1] = monthly_records[i][0]
             
-            
-    print ("Last month profit: " + str(int(monthly_records[-1][1])) + " and first month profit: " + str(int(monthly_records[0][1])))    
-    #total_monthly_change = int(monthly_records[-1][1])-int(monthly_records[0][1])
-    total_monthly_change = sum(monthly_change_list)
+        
     total_months = csvreader.line_num -1
     print ("Total months:" + str(total_months))
     print ("Total: " + str(total_profit))
-    print ("Total monthly change is: " + str(total_monthly_change))
-    print ("Average monthly change is: " + str(round(total_monthly_change/(total_months-1),2)))
+    print ("Average monthly change is: " + str(round(sum(monthly_change_list)/len(monthly_change_list),2)))
     print ("Greatest monthly increase is: " + str(greatest_profit_increase [1] + " " + str(greatest_profit_increase[0])))
     print ("Smallest monthly increase is: " + str(smallest_profit_increase[1] + " " + str(smallest_profit_increase[0])))
-    
