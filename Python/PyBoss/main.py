@@ -2,8 +2,6 @@
 import csv
 import os
 
-
-
 file1_path = os.path.join('.', "employee_data.csv")
 output_file = os.path.join('.', "outputfile.csv")
 
@@ -72,14 +70,15 @@ def reformat_dob(dob):
     new_dob=month+'/'+day+'/'+year 
     return new_dob
     
-    
 with open(file1_path, 'r') as file1:
     csvreader1 = csv.DictReader(file1)
+    # list comprehension to create a list with new format
     new_list = [
         (row['Emp ID'], row['Name'].split(" ")[0],row['Name'].split(" ")[1], reformat_dob(row['DOB']), print_ssn(row['SSN']), us_state_abbrev[row['State']])
         for row in csvreader1
     ]
 
+# write new format to csv file
 with open(output_file, "w", newline='') as outfile:
     csvwriter = csv.writer(outfile, delimiter=",")
     for row in new_list:
